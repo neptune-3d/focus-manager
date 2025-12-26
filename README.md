@@ -85,7 +85,8 @@ tableBody.classList.toggle("focused", focusManager.entry?.key === "tableBody");
 
 // dynamic areas
 
-// for multiple "instances" of the same focus area definition and other dynamic data, the meta field can be used
+// for multiple "instances" of the same focus area definition and other dynamic data, 
+// the meta field can be used
 
 const focusManager = new FocusManager({
   areas: {
