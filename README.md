@@ -82,6 +82,6 @@ focusManager.goBack(); // or focusManager.go(-1)
 // update UI
 
 if (focusManager.entry?.key === "tableBody") {
-  tableBody.classlist.add("focused");
+  tableBody.classList.add("focused");
 }
 ```
