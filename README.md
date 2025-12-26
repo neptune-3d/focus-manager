@@ -82,4 +82,22 @@ focusManager.goBack(); // or focusManager.go(-1)
 // update UI
 
 tableBody.classList.toggle("focused", focusManager.entry?.key === "tableBody");
+
+// dynamic areas
+
+// for multiple "instances" of the same focus area definition and other dynamic data, the meta field can be used
+
+const focusManager = new FocusManager({
+  areas: {
+    paneTabs: new ListFocusManager<{ pane: Pane }>({
+      getKeys: (ctx) => {
+        return ctx.meta?.pane.tabKeys ?? []; // meta will be present before getKeys is called
+      },
+      // ...
+    }),
+  },
+});
+
+// meta passed as the last argument and attached to the focus area entry
+focusManager.focusAreaKey("paneTabs", tab.id, "keyboard", { pane: myPane });
 ```
