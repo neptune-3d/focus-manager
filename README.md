@@ -71,6 +71,7 @@ window.addEventListener("keydown", (e) => {
 // click on button
 
 toolbarBackBtn.addEventListener("pointerdown", () => {
+  // unless pointerdown already automatically triggers focus
   focusManager.focusAreaKey("toolbar", "back", "pointer");
 });
 
