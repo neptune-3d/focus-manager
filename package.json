@@ -1,7 +1,7 @@
 {
   "name": "@neptune3d/focus-manager",
   "version": "0.0.1",
-  "description": "Accessible, spec-compliant focus state managers",
+  "description": "Accessible, spec-compliant focus state manager",
   "keywords": [
     "focus",
     "aria",
