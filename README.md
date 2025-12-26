@@ -62,7 +62,8 @@ tableBody.addEventListener("focus", () => {
 
 window.addEventListener("keydown", (e) => {
   if (e.code === "ArrowRight") {
-    focusManager.focusOnArrowRight(); // moves the focus within the current area, if an area is focused.
+    // moves the focus within the current area, if an area is focused.
+    focusManager.focusOnArrowRight();
 
     // update UI
   }
@@ -85,7 +86,7 @@ tableBody.classList.toggle("focused", focusManager.entry?.key === "tableBody");
 
 // dynamic areas
 
-// for multiple "instances" of the same focus area definition and other dynamic data, 
+// for multiple "instances" of the same focus area definition and other dynamic data,
 // the meta field can be used
 
 const focusManager = new FocusManager({
