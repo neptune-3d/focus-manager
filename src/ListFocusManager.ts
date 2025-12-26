@@ -14,9 +14,6 @@ import type {
  * - Supports configurable wrap‑around behavior when navigating past the first/last item.
  * - Delegates to helper functions for key retrieval, page sizing, and initial focus selection.
  *
- * This manager is designed to be composable at the area level, and can be extended
- * or complemented by other managers (e.g. grid, pane) in the future.
- *
  * @template Meta Optional metadata type associated with focus entries.
  */
 export class ListFocusManager<Meta = any> {
