@@ -93,7 +93,7 @@ const focusManager = new FocusManager({
   areas: {
     paneTabs: new ListFocusManager<{ pane: Pane }>({
       getKeys: (ctx) => {
-        return ctx.meta?.pane.tabKeys ?? []; // meta will be present before getKeys is called
+        return ctx.meta?.pane.tabKeys ?? [];
       },
       // ...
     }),
