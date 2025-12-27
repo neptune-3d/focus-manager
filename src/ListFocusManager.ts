@@ -32,7 +32,8 @@ export class ListFocusManager<Meta = any> {
    */
   constructor(props: ListFocusManagerProps<Meta>) {
     this._getKeys = props.getKeys;
-    this._getPageSize = props.getPageSize;
+    this._getFirstVisibleIndex = props.getFirstVisibleIndex;
+    this._getLastVisibleIndex = props.getLastVisibleIndex;
     this._getOrientation = props.getOrientation;
     this._getInitialKeyOnAreaFocus = props.getInitialKeyOnAreaFocus;
     this._wrapAround = !!props.wrapAround;
@@ -43,7 +44,8 @@ export class ListFocusManager<Meta = any> {
   protected _key: FocusKey | null = null;
 
   protected _getKeys;
-  protected _getPageSize;
+  protected _getFirstVisibleIndex;
+  protected _getLastVisibleIndex;
   protected _getOrientation;
   protected _getInitialKeyOnAreaFocus;
   protected _wrapAround;
@@ -119,6 +121,38 @@ export class ListFocusManager<Meta = any> {
   }
 
   /**
+   * Returns the index of the first visible item in the viewport.
+   *
+   * Delegates to the `getFirstVisibleIndex` callback provided in the
+   * constructor props. If no callback is defined, this method returns 0.
+   *
+   * @returns {number} The index of the first visible item,
+   * or 0 if no callback is specified.
+   */
+  getFirstVisibleIndex(): number {
+    return this._getFirstVisibleIndex?.(this.getCallbackContext()) ?? 0;
+  }
+
+  /**
+   * Returns the index of the last visible item in the viewport.
+   *
+   * Delegates to the `getLastVisibleIndex` callback provided in the
+   * constructor props. If no callback is defined, this method returns
+   * the index of the last key in the list.
+   *
+   * @returns {number} The index of the last visible item,
+   * or the last key index if no callback is specified.
+   */
+  getLastVisibleIndex(): number {
+    const keys = this._getKeys(this.getCallbackContext());
+
+    return (
+      this._getLastVisibleIndex?.(this.getCallbackContext()) ??
+      (keys.length > 0 ? keys.length - 1 : 0)
+    );
+  }
+
+  /**
    * Moves focus by one step in the list based on arrow key input.
    *
    * @param delta - Direction of movement:
@@ -153,41 +187,52 @@ export class ListFocusManager<Meta = any> {
   /**
    * Moves focus by a "page" of items, typically triggered by PageUp/PageDown.
    *
+   * Semantics:
+   * - PageUp:
+   *   • If focus is not yet at the first visible item, jump to that top item.
+   *   • If focus is already at the first visible item, move one visible page up
+   *     so the old top becomes the new bottom.
+   *
+   * - PageDown:
+   *   • If focus is not yet at the last visible item, jump to that bottom item.
+   *   • If focus is already at the last visible item, move one visible page down
+   *     so the old bottom becomes the new top.
+   *
+   * Visibility is defined by the application via getFirstVisibleIndex/getLastVisibleIndex.
+   *
    * @param delta - Direction of movement:
    *   - `-1` for PageUp (previous page)
    *   - `1` for PageDown (next page)
    */
   focusOnPage(delta: -1 | 1): void {
     const ctx = this.getCallbackContext();
-
     const keys = this._getKeys(ctx);
-    const keysLen = keys.length;
+    if (keys.length === 0) return;
 
-    if (keysLen === 0) return;
-
-    const currentKey = this._key;
-    const currentIndex = currentKey != null ? keys.indexOf(currentKey) : -1;
-    const pageSize = this._getPageSize(ctx);
+    const currentIndex = this._key != null ? keys.indexOf(this._key) : -1;
+    const firstVisible = this.getFirstVisibleIndex();
+    const lastVisible = this.getLastVisibleIndex();
+    const visibleCount = Math.max(1, lastVisible - firstVisible + 1);
 
     let targetIndex: number;
 
-    if (currentIndex === -1) {
-      // No current focus: jump directly to boundary
-      targetIndex = delta === 1 ? keysLen - 1 : 0;
-    }
-    //
-    else {
-      const nextIndex = currentIndex + delta * pageSize;
-
-      if (pageSize >= keysLen) {
-        // If page size covers the whole list, just go to boundary
-        targetIndex = delta === 1 ? keysLen - 1 : 0;
+    if (delta === -1) {
+      if (currentIndex > firstVisible) {
+        targetIndex = firstVisible;
       }
       //
       else {
-        targetIndex = this._wrapAround
-          ? this.wrapIndex(nextIndex, keysLen)
-          : this.clampIndex(nextIndex, keysLen);
+        targetIndex = Math.max(0, firstVisible - visibleCount + 1);
+      }
+    }
+    //
+    else {
+      if (currentIndex < lastVisible) {
+        targetIndex = lastVisible;
+      }
+      //
+      else {
+        targetIndex = Math.min(keys.length - 1, lastVisible + visibleCount - 1);
       }
     }
 

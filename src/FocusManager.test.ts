@@ -13,7 +13,6 @@ describe("FocusManager.focusArea", () => {
   beforeEach(() => {
     area1 = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "a",
       wrapAround: false,
@@ -21,7 +20,6 @@ describe("FocusManager.focusArea", () => {
 
     area2 = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 3,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "x",
       wrapAround: true,
@@ -98,7 +96,6 @@ describe("FocusManager.focusAreaKey", () => {
   beforeEach(() => {
     area1 = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "a",
       wrapAround: false,
@@ -106,7 +103,6 @@ describe("FocusManager.focusAreaKey", () => {
 
     area2 = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 3,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "x",
       wrapAround: true,
@@ -186,21 +182,18 @@ describe("FocusManager.go", () => {
   beforeEach(() => {
     area1 = new ListFocusManager<string>({
       getKeys: () => ["a", "b"],
-      getPageSize: () => 2,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "a",
     });
 
     area2 = new ListFocusManager<string>({
       getKeys: () => ["x", "y"],
-      getPageSize: () => 2,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "x",
     });
 
     area3 = new ListFocusManager<string>({
       getKeys: () => ["m", "n"],
-      getPageSize: () => 2,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "m",
     });
@@ -275,14 +268,12 @@ describe("FocusManager.focusOnArrowUp", () => {
   beforeEach(() => {
     vertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "b",
     });
 
     horizontal = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 3,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "y",
     });
@@ -326,7 +317,6 @@ describe("FocusManager.focusOnArrowUp", () => {
   it("wraps correctly if wrapAround is true", () => {
     const wrapVertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "a",
       wrapAround: true,
@@ -350,7 +340,6 @@ describe("FocusManager.focusOnArrowUp", () => {
   it("does not move past the first key when wrapAround is false", () => {
     const noWrapVertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "a",
       wrapAround: false,
@@ -383,14 +372,12 @@ describe("FocusManager.focusOnArrowDown", () => {
   beforeEach(() => {
     vertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "b",
     });
 
     horizontal = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 3,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "y",
     });
@@ -429,7 +416,6 @@ describe("FocusManager.focusOnArrowDown", () => {
   it("wraps correctly if wrapAround is true", () => {
     const wrapVertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "c",
       wrapAround: true,
@@ -452,7 +438,6 @@ describe("FocusManager.focusOnArrowDown", () => {
   it("does not move past the last key when wrapAround is false", () => {
     const noWrapVertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "c",
       wrapAround: false,
@@ -484,14 +469,12 @@ describe("FocusManager.focusOnArrowLeft", () => {
   beforeEach(() => {
     vertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "b",
     });
 
     horizontal = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 3,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "y",
     });
@@ -530,7 +513,6 @@ describe("FocusManager.focusOnArrowLeft", () => {
   it("wraps correctly if wrapAround is true", () => {
     const wrapHorizontal = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 3,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "x",
       wrapAround: true,
@@ -553,7 +535,6 @@ describe("FocusManager.focusOnArrowLeft", () => {
   it("does not move past the first key when wrapAround is false", () => {
     const noWrapHorizontal = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 3,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "x",
       wrapAround: false,
@@ -578,7 +559,6 @@ describe("FocusManager arrow navigation without wrapAround", () => {
   it("does not move past the first key when wrapAround is false", () => {
     const vertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "a",
       wrapAround: false,
@@ -596,7 +576,6 @@ describe("FocusManager arrow navigation without wrapAround", () => {
   it("does not move past the last key when wrapAround is false", () => {
     const vertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 3,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "c",
       wrapAround: false,
@@ -614,7 +593,6 @@ describe("FocusManager arrow navigation without wrapAround", () => {
   it("does not move past the first/last key in horizontal orientation when wrapAround is false", () => {
     const horizontal = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 3,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "x",
       wrapAround: false,
@@ -645,18 +623,21 @@ describe("FocusManager.focusOnPageUp", () => {
   beforeEach(() => {
     vertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c", "d", "e"],
-      getPageSize: () => 2,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "c",
       wrapAround: false,
+      // simulate viewport showing b–d
+      getFirstVisibleIndex: () => 1,
+      getLastVisibleIndex: () => 3,
     });
 
     horizontal = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 2,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "y",
       wrapAround: false,
+      getFirstVisibleIndex: () => 0,
+      getLastVisibleIndex: () => 2,
     });
 
     fm = new FocusManager({
@@ -680,63 +661,51 @@ describe("FocusManager.focusOnPageUp", () => {
     expect(fm.entry?.source).toBe("programmatic"); // still default
   });
 
-  it("moves focus upward by one page in a vertical list", () => {
+  it("jumps to the first visible item if not already there", () => {
     fm.focusArea("vertical");
     expect(vertical.key).toBe("c"); // initial key
 
     fm.focusOnPageUp();
 
-    // page size = 2, so c -> a
+    // currentIndex=2, firstVisible=1 → should jump to "b"
+    expect(vertical.key).toBe("b");
+    expect(fm.entry?.source).toBe("keyboard");
+  });
+
+  it("moves one page up when already at the first visible item", () => {
+    fm.focusAreaKey("vertical", "b"); // focus at firstVisible
+    expect(vertical.key).toBe("b");
+
+    fm.focusOnPageUp();
+
+    // visibleCount = 3, firstVisible=1 → target = max(0, 1-3+1) = 0 → "a"
     expect(vertical.key).toBe("a");
     expect(fm.entry?.source).toBe("keyboard");
   });
 
-  it("wraps correctly if wrapAround is true", () => {
-    const wrapVertical = new ListFocusManager<string>({
-      getKeys: () => ["a", "b", "c", "d"],
-      getPageSize: () => 2,
+  it("clamps at the start when moving beyond the first key", () => {
+    const shortVertical = new ListFocusManager<string>({
+      getKeys: () => ["a", "b", "c"],
       getOrientation: () => "vertical",
-      getInitialKeyOnAreaFocus: () => "b",
-      wrapAround: true,
+      getInitialKeyOnAreaFocus: () => "a",
+      wrapAround: true, // ignored for page focus
+      getFirstVisibleIndex: () => 0,
+      getLastVisibleIndex: () => 1,
     });
 
     const fm2 = new FocusManager({
-      areas: { wrapVertical },
+      areas: { shortVertical },
       maxHistory: 10,
     });
 
-    fm2.focusArea("wrapVertical");
-    expect(wrapVertical.key).toBe("b");
+    fm2.focusArea("shortVertical");
+    expect(shortVertical.key).toBe("a");
 
     fm2.focusOnPageUp();
 
-    // page size = 2, so b -> wrap to d
-    expect(wrapVertical.key).toBe("d");
+    // already at firstVisible=0 → clamp at "a"
+    expect(shortVertical.key).toBe("a");
     expect(fm2.entry?.source).toBe("keyboard");
-  });
-
-  it("does not move past the first key when wrapAround is false", () => {
-    const noWrapVertical = new ListFocusManager<string>({
-      getKeys: () => ["a", "b", "c", "d"],
-      getPageSize: () => 2,
-      getOrientation: () => "vertical",
-      getInitialKeyOnAreaFocus: () => "a",
-      wrapAround: false,
-    });
-
-    const fm3 = new FocusManager({
-      areas: { noWrapVertical },
-      maxHistory: 10,
-    });
-
-    fm3.focusArea("noWrapVertical");
-    expect(noWrapVertical.key).toBe("a");
-
-    fm3.focusOnPageUp();
-
-    // still "a", clamped at start
-    expect(noWrapVertical.key).toBe("a");
-    expect(fm3.entry?.source).toBe("keyboard");
   });
 });
 
@@ -751,18 +720,21 @@ describe("FocusManager.focusOnPageDown", () => {
   beforeEach(() => {
     vertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c", "d", "e"],
-      getPageSize: () => 2,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "b",
       wrapAround: false,
+      // simulate viewport showing b–d
+      getFirstVisibleIndex: () => 1,
+      getLastVisibleIndex: () => 3,
     });
 
     horizontal = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 2,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "y",
       wrapAround: false,
+      getFirstVisibleIndex: () => 0,
+      getLastVisibleIndex: () => 2,
     });
 
     fm = new FocusManager({
@@ -786,63 +758,51 @@ describe("FocusManager.focusOnPageDown", () => {
     expect(fm.entry?.source).toBe("programmatic"); // still default
   });
 
-  it("moves focus downward by one page in a vertical list", () => {
+  it("jumps to the last visible item if not already there", () => {
     fm.focusArea("vertical");
     expect(vertical.key).toBe("b"); // initial key
 
     fm.focusOnPageDown();
 
-    // page size = 2, so b -> d
+    // currentIndex=1, lastVisible=3 → should jump to "d"
     expect(vertical.key).toBe("d");
     expect(fm.entry?.source).toBe("keyboard");
   });
 
-  it("wraps correctly if wrapAround is true", () => {
-    const wrapVertical = new ListFocusManager<string>({
-      getKeys: () => ["a", "b", "c", "d"],
-      getPageSize: () => 2,
+  it("moves one page down when already at the last visible item", () => {
+    fm.focusAreaKey("vertical", "d"); // focus at lastVisible
+    expect(vertical.key).toBe("d");
+
+    fm.focusOnPageDown();
+
+    // visibleCount = 3, lastVisible=3 → target = min(4, 3+3-1) = 4 → "e"
+    expect(vertical.key).toBe("e");
+    expect(fm.entry?.source).toBe("keyboard");
+  });
+
+  it("clamps at the end when moving beyond the last key", () => {
+    const shortVertical = new ListFocusManager<string>({
+      getKeys: () => ["a", "b", "c"],
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "c",
-      wrapAround: true,
+      wrapAround: true, // ignored for page focus
+      getFirstVisibleIndex: () => 1,
+      getLastVisibleIndex: () => 2,
     });
 
     const fm2 = new FocusManager({
-      areas: { wrapVertical },
+      areas: { shortVertical },
       maxHistory: 10,
     });
 
-    fm2.focusArea("wrapVertical");
-    expect(wrapVertical.key).toBe("c");
+    fm2.focusArea("shortVertical");
+    expect(shortVertical.key).toBe("c");
 
     fm2.focusOnPageDown();
 
-    // page size = 2, so c -> wrap to a
-    expect(wrapVertical.key).toBe("a");
+    // already at lastVisible=2 → clamp at "c"
+    expect(shortVertical.key).toBe("c");
     expect(fm2.entry?.source).toBe("keyboard");
-  });
-
-  it("does not move past the last key when wrapAround is false", () => {
-    const noWrapVertical = new ListFocusManager<string>({
-      getKeys: () => ["a", "b", "c", "d"],
-      getPageSize: () => 2,
-      getOrientation: () => "vertical",
-      getInitialKeyOnAreaFocus: () => "d",
-      wrapAround: false,
-    });
-
-    const fm3 = new FocusManager({
-      areas: { noWrapVertical },
-      maxHistory: 10,
-    });
-
-    fm3.focusArea("noWrapVertical");
-    expect(noWrapVertical.key).toBe("d");
-
-    fm3.focusOnPageDown();
-
-    // still "d", clamped at end
-    expect(noWrapVertical.key).toBe("d");
-    expect(fm3.entry?.source).toBe("keyboard");
   });
 });
 
@@ -857,7 +817,6 @@ describe("FocusManager.focusOnHome", () => {
   beforeEach(() => {
     vertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c", "d"],
-      getPageSize: () => 2,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "c",
       wrapAround: false,
@@ -865,7 +824,6 @@ describe("FocusManager.focusOnHome", () => {
 
     horizontal = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 2,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "y",
       wrapAround: false,
@@ -905,7 +863,6 @@ describe("FocusManager.focusOnHome", () => {
   it("does not move if already at the first item", () => {
     const noWrapVertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 2,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "a",
       wrapAround: false,
@@ -937,7 +894,6 @@ describe("FocusManager.focusOnEnd", () => {
   beforeEach(() => {
     vertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c", "d"],
-      getPageSize: () => 2,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "b",
       wrapAround: false,
@@ -945,7 +901,6 @@ describe("FocusManager.focusOnEnd", () => {
 
     horizontal = new ListFocusManager<string>({
       getKeys: () => ["x", "y", "z"],
-      getPageSize: () => 2,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "y",
       wrapAround: false,
@@ -985,7 +940,6 @@ describe("FocusManager.focusOnEnd", () => {
   it("does not move if already at the last item", () => {
     const noWrapVertical = new ListFocusManager<string>({
       getKeys: () => ["a", "b", "c"],
-      getPageSize: () => 2,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "c",
       wrapAround: false,
@@ -1017,14 +971,12 @@ describe("FocusManager.clear", () => {
   beforeEach(() => {
     area1 = new ListFocusManager<string>({
       getKeys: () => ["a", "b"],
-      getPageSize: () => 2,
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => "a",
     });
 
     area2 = new ListFocusManager<string>({
       getKeys: () => ["x", "y"],
-      getPageSize: () => 2,
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "x",
     });

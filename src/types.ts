@@ -54,14 +54,30 @@ export type ListFocusManagerProps<Meta> = {
   getKeys: (ctx: ListFocusManagerCallbackContext<Meta>) => FocusKey[];
 
   /**
-   * Returns the number of items that constitute a "page" jump.
+   * Returns the index of the first visible item in the viewport.
    *
-   * Typically this corresponds to the number of visible list items
-   * in the viewport, but the application can decide dynamically.
+   * The application decides whether "visible" means fully or
+   * partially visible. Used by PageUp navigation to determine
+   * the top boundary.
    *
-   * @returns {number} The page size to use for PageUp/PageDown navigation.
+   * Optional: if omitted, PageUp falls back to simple clamping.
+   *
+   * @returns {number} The index of the first visible item.
    */
-  getPageSize: (ctx: ListFocusManagerCallbackContext<Meta>) => number;
+  getFirstVisibleIndex?: (ctx: ListFocusManagerCallbackContext<Meta>) => number;
+
+  /**
+   * Returns the index of the last visible item in the viewport.
+   *
+   * The application decides whether "visible" means fully or
+   * partially visible. Used by PageDown navigation to determine
+   * the bottom boundary.
+   *
+   * Optional: if omitted, PageDown falls back to simple clamping.
+   *
+   * @returns {number} The index of the last visible item.
+   */
+  getLastVisibleIndex?: (ctx: ListFocusManagerCallbackContext<Meta>) => number;
 
   /**
    * Returns the orientation of the list.
@@ -98,6 +114,8 @@ export type ListFocusManagerProps<Meta> = {
    *
    * - `true`: Moving past the last item focuses the first, and vice versa.
    * - `false` (default): Focus stops at the boundaries.
+   *
+   * @returns {boolean} True if focus should wrap around, false otherwise.
    */
   wrapAround?: boolean;
 };
