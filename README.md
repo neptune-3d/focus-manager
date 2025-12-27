@@ -17,7 +17,6 @@ const focusManager = new FocusManager({
   areas: {
     toolbar: new ListFocusManager({
       getKeys: () => ["back", "forward", "refresh"], // or dynamic
-      getPageSize: () => 3, // might be irrelevant for a horizontal toolbar
       getOrientation: () => "horizontal",
       getInitialKeyOnAreaFocus: () => "back", // usually the first key, but can be dynamic
       wrapAround: true,
@@ -26,8 +25,11 @@ const focusManager = new FocusManager({
       getKeys: () => {
         return table.rowKeys;
       },
-      getPageSize: () => {
-        return Math.floor(table.viewportHeight / table.rowHeight);
+      getFirstVisibleIndex: () => {
+        return table.firstVisibleIndex; // this needs to be dynamically calculated based on the viewport, scroll offset, and item height(s).
+      },
+      getLastVisibleIndex: () => {
+        return table.lastVisibleIndex; // this needs to be dynamically calculated based on the viewport, scroll offset, and item height(s).
       },
       getOrientation: () => "vertical",
       getInitialKeyOnAreaFocus: () => {
