@@ -31,22 +31,22 @@ export class ListFocusManager<Meta = any> {
    * orientation and wrap‑around behavior.
    */
   constructor(props: ListFocusManagerProps<Meta>) {
-    this.getKeys = props.getKeys;
-    this.getPageSize = props.getPageSize;
+    this._getKeys = props.getKeys;
+    this._getPageSize = props.getPageSize;
     this._getOrientation = props.getOrientation;
     this._getInitialKeyOnAreaFocus = props.getInitialKeyOnAreaFocus;
-    this.wrapAround = !!props.wrapAround;
+    this._wrapAround = !!props.wrapAround;
   }
 
   kind = "list" as const;
 
   protected _key: FocusKey | null = null;
 
-  protected getKeys;
-  protected getPageSize;
+  protected _getKeys;
+  protected _getPageSize;
   protected _getOrientation;
   protected _getInitialKeyOnAreaFocus;
-  protected wrapAround;
+  protected _wrapAround;
 
   protected _parent?: FocusManager<any>;
 
@@ -70,6 +70,51 @@ export class ListFocusManager<Meta = any> {
     this._key = value;
   }
 
+  /**
+   * Returns the ordered set of focusable keys for this area,
+   * as provided by the `getKeys` callback.
+   *
+   * @returns {FocusKey[]} An array of focusable keys in UI order.
+   */
+  getKeys(): FocusKey[] {
+    return this._getKeys(this.getCallbackContext());
+  }
+
+  /**
+   * Returns the index of the given key within the ordered set of focusable keys.
+   *
+   * @param key The focusable key to look up.
+   * @returns {number} The index of the key, or -1 if the key is not found.
+   */
+  getKeyIndex(key: FocusKey): number {
+    const keys = this.getKeys();
+    return keys.indexOf(key);
+  }
+
+  /**
+   * Returns the index of the currently focused key within the ordered set of keys.
+   *
+   * If no key is currently focused, this returns -1.
+   *
+   * @returns {number} The index of the focused key, or -1 if none is focused.
+   */
+  getFocusedKeyIndex(): number {
+    const currentKey = this.key;
+    if (currentKey == null) return -1;
+
+    const keys = this.getKeys();
+    return keys.indexOf(currentKey);
+  }
+
+  /**
+   * Returns the initial focus key when this area receives focus.
+   *
+   * Delegates to the `getInitialKeyOnAreaFocus` callback provided in the
+   * constructor props. If no callback is defined, this method returns `null`.
+   *
+   * @returns {FocusKey | null} The key that should be focused initially,
+   * or `null` if no initial key is specified.
+   */
   getInitialKeyOnAreaFocus() {
     return this._getInitialKeyOnAreaFocus?.(this.getCallbackContext()) ?? null;
   }
@@ -82,7 +127,7 @@ export class ListFocusManager<Meta = any> {
    *   - `1` for next (Down/Right depending on orientation)
    */
   focusOnArrow(delta: -1 | 1): void {
-    const keys = this.getKeys(this.getCallbackContext());
+    const keys = this.getKeys();
 
     const keysLen = keys.length;
 
@@ -98,7 +143,7 @@ export class ListFocusManager<Meta = any> {
     //
     else {
       const nextIndex = currentIndex + delta;
-      targetIndex = this.wrapAround
+      targetIndex = this._wrapAround
         ? this.wrapIndex(nextIndex, keysLen)
         : this.clampIndex(nextIndex, keysLen);
     }
@@ -116,14 +161,14 @@ export class ListFocusManager<Meta = any> {
   focusOnPage(delta: -1 | 1): void {
     const ctx = this.getCallbackContext();
 
-    const keys = this.getKeys(ctx);
+    const keys = this._getKeys(ctx);
     const keysLen = keys.length;
 
     if (keysLen === 0) return;
 
     const currentKey = this._key;
     const currentIndex = currentKey != null ? keys.indexOf(currentKey) : -1;
-    const pageSize = this.getPageSize(ctx);
+    const pageSize = this._getPageSize(ctx);
 
     let targetIndex: number;
 
@@ -141,7 +186,7 @@ export class ListFocusManager<Meta = any> {
       }
       //
       else {
-        targetIndex = this.wrapAround
+        targetIndex = this._wrapAround
           ? this.wrapIndex(nextIndex, keysLen)
           : this.clampIndex(nextIndex, keysLen);
       }
@@ -159,7 +204,7 @@ export class ListFocusManager<Meta = any> {
    *   - `1`: End → last item
    */
   focusOnHomeEnd(direction: -1 | 1): void {
-    const keys = this.getKeys(this.getCallbackContext());
+    const keys = this.getKeys();
 
     const keysLen = keys.length;
 
