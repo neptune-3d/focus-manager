@@ -1040,13 +1040,13 @@ describe("FocusManager.clear", () => {
     fm.focusArea("area2");
 
     expect(fm.entry?.area).toBe("area2");
-    expect(fm["\u005fstack"].length).toBe(2);
-    expect(fm["\u005findex"]).toBe(1);
+    expect(fm["_stack"].length).toBe(2);
+    expect(fm["_index"]).toBe(1);
 
     fm.clear();
 
-    expect(fm["\u005fstack"].length).toBe(0);
-    expect(fm["\u005findex"]).toBe(-1);
+    expect(fm["_stack"].length).toBe(0);
+    expect(fm["_index"]).toBe(-1);
     expect(fm.entry).toBeNull();
   });
 
@@ -1057,8 +1057,8 @@ describe("FocusManager.clear", () => {
     fm.focusArea("area2");
 
     expect(fm.entry?.area).toBe("area2");
-    expect(fm["\u005fstack"].length).toBe(1);
-    expect(fm["\u005findex"]).toBe(0);
+    expect(fm["_stack"].length).toBe(1);
+    expect(fm["_index"]).toBe(0);
   });
 
   it("is idempotent when called multiple times", () => {
@@ -1066,8 +1066,8 @@ describe("FocusManager.clear", () => {
     fm.clear();
     fm.clear(); // second call should not throw or change anything
 
-    expect(fm["\u005fstack"].length).toBe(0);
-    expect(fm["\u005findex"]).toBe(-1);
+    expect(fm["_stack"].length).toBe(0);
+    expect(fm["_index"]).toBe(-1);
     expect(fm.entry).toBeNull();
   });
 });
