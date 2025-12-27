@@ -11,6 +11,8 @@ npm install @neptune3d/focus-manager
 ## Usage
 
 ```ts
+import { FocusManager, ListFocusManager } from "@neptune3d/focus-manager";
+
 const focusManager = new FocusManager({
   areas: {
     toolbar: new ListFocusManager({
