@@ -102,8 +102,7 @@ export class ListFocusManager<Meta = any> {
     const currentKey = this.key;
     if (currentKey == null) return -1;
 
-    const keys = this.getKeys();
-    return keys.indexOf(currentKey);
+    return this.getKeyIndex(currentKey);
   }
 
   /**
