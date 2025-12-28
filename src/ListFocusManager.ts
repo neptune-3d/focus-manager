@@ -205,8 +205,7 @@ export class ListFocusManager<Meta = any> {
    *   - `1` for PageDown (next page)
    */
   focusOnPage(delta: -1 | 1): void {
-    const ctx = this.getCallbackContext();
-    const keys = this._getKeys(ctx);
+    const keys = this.getKeys();
     if (keys.length === 0) return;
 
     const currentIndex = this._key != null ? keys.indexOf(this._key) : -1;
